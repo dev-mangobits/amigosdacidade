@@ -1,0 +1,1 @@
+export { changeReduxStoreCounter } from './home';
