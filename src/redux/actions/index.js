@@ -1,1 +1,1 @@
-export { changeReduxStoreCounter } from './home';
+export { setLogged } from './base';

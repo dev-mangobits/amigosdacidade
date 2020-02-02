@@ -13,6 +13,10 @@ const global = css`
     padding: 0;
     height: 100%;
   }
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 export default createGlobalStyle`

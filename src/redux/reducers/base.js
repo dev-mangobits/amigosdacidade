@@ -1,14 +1,13 @@
 const INITIAL_STATE = {
-  appName: 'PWA Boilerplate',
-  reduxStoreCounter: 1,
+  logged: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'CHANGE_REDUX_STORE_COUNTER':
+    case 'SET_LOGGED':
       return {
         ...state,
-        reduxStoreCounter: action.reduxStoreCounter,
+        logged: action.bool,
       };
 
     default:
