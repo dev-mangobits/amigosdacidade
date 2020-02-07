@@ -2,9 +2,9 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Dashboard from '@/containers/Dashboard';
-import Login from '@/containers/Login';
-import Register from '@/containers/Register';
-import ForgotPassword from '@/containers/ForgotPassword';
+import Login from '@/containers/user/Login';
+import Register from '@/containers/user/Register';
+import ForgotPassword from '@/containers/user/ForgotPassword';
 import NotFound from '@/containers/NotFound';
 
 export const appRoutes = {
