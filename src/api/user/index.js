@@ -7,10 +7,10 @@ export default {
     );
   },
 
-  create: async (email, password, language, name) => {
+  create: async (name, email, password) => {
     return await Base.fetch('/user/newUser', {
       method: 'POST',
-      body: { email, password, language, name },
+      body: { name, email, password },
     }).then(res => res.json());
   },
 

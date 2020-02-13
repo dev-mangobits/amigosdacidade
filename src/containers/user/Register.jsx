@@ -56,7 +56,16 @@ const Register = ({ addAlert }) => {
   const postRegister = async () => {
     const { name, email, password } = form;
     const { success, desc } = await api.user.create(name, email, password);
-    console.log(success, desc)
+
+    if (success) {
+      addAlert({
+        color: 'success',
+        text: 'Usuário criado com sucesso.'
+      });
+      
+      return
+    }
+
     addAlert(parseAlert(desc));
   };
 

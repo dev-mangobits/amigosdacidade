@@ -1,6 +1,6 @@
 export default {
   API:
-    process.env.MODE === 'development' ? 'http://diegoveiculos.startupkit.mangotest.com' : '{url}',
+    process.env.MODE === 'development' ? 'http://app3.startupkit.mangotest.com' : '{api}',
   modules: {
     user: false,
     security: true,
