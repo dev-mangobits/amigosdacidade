@@ -1,4 +1,4 @@
-import Base from './base';
+import Base from '../base';
 
 export default {
   login: async (email, password) => {
@@ -14,7 +14,7 @@ export default {
     }).then(res => res.json());
   },
 
-  forgotPassword = async email => {
+  forgotPassword: async email => {
     return await Base.fetch(`/userExt/forgotPassword/${email}`).then(res =>
       res.json(),
     );

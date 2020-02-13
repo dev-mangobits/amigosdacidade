@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Field, Button } from '@/components/atoms';
 import { Box } from '@/components/molecules';
+import { addAlert } from '@/redux/actions/base';
+import api from '@/api';
+import { parseAlert } from '@/helpers';
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.color.primary};
@@ -39,14 +42,21 @@ const Register = styled.div`
   }
 `;
 
-const Login = () => {
+const Login = ({ addAlert }) => {
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
 
-  const updateField = (form, value) => {
-    setForm({ ...form, [form]: value });
+  const updateField = (key, value) => {
+    setForm({ ...form, [key]: value });
+  };
+
+  const postLogin = async () => {
+    const { email, password } = form;
+    const { success, desc } = await api.user.login(email, password);
+    addAlert(parseAlert(desc));
+    console.log(success, desc);
   };
 
   return (
@@ -60,13 +70,14 @@ const Login = () => {
             onChange={e => updateField('email', e.target.value)}
           />
           <Field
+            type="password"
             id="login-pass"
             label="Senha"
             value={form.password}
             onChange={e => updateField('password', e.target.value)}
           />
           <Actions>
-            <Button>Entrar</Button>
+            <Button onClick={postLogin}>Entrar</Button>
             <p>
               <Link to="/senha">Recuperar senha</Link>
             </p>
@@ -81,4 +92,11 @@ const Login = () => {
   );
 };
 
-export default connect(null)(Login);
+const mapDispatchToProps = {
+  addAlert,
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Login);

@@ -1,6 +1,8 @@
+import config from '@/config';
+
 export default class Base {
   static getEndpoint(url) {
-    return `${process.env.API}/rs${url}`;
+    return `${config.API}/rs${url}`;
   }
 
   static getHeaders() {

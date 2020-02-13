@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Field, Button } from '@/components/atoms';
 import { Box } from '@/components/molecules';
+import api from '@/api';
+import { addAlert } from '@/redux/actions/base';
+import { parseAlert } from '@/helpers';
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.color.primary};
@@ -39,15 +42,22 @@ const Back = styled.div`
   }
 `;
 
-const Register = () => {
+const Register = ({ addAlert }) => {
   const [form, setForm] = useState({
     name: '',
     email: '',
     password: '',
   });
 
-  const updateField = (form, value) => {
-    setForm({ ...form, [form]: value });
+  const updateField = (key, value) => {
+    setForm({ ...form, [key]: value });
+  };
+
+  const postRegister = async () => {
+    const { name, email, password } = form;
+    const { success, desc } = await api.user.create(name, email, password);
+    console.log(success, desc)
+    addAlert(parseAlert(desc));
   };
 
   return (
@@ -67,13 +77,14 @@ const Register = () => {
             onChange={e => updateField('email', e.target.value)}
           />
           <Field
+            type="password"
             id="register-password"
             label="Password"
             value={form.password}
             onChange={e => updateField('password', e.target.value)}
           />
           <Actions>
-            <Button>Cadastrar</Button>
+            <Button onClick={postRegister}>Cadastrar</Button>
           </Actions>
         </Box>
       </Wrapper>
@@ -85,4 +96,11 @@ const Register = () => {
   );
 };
 
-export default connect(null)(Register);
+const DispatchToProps = {
+  addAlert,
+};
+
+export default connect(
+  null,
+  DispatchToProps,
+)(Register);

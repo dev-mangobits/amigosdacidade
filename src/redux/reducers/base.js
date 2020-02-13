@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
   logged: false,
+  alerts: [],
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -8,6 +9,24 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         logged: action.bool,
+      };
+
+    case 'ALERT_ADD':
+      return {
+        ...state,
+        alerts: [...state.alerts, action.alert],
+      };
+
+    case 'ALERT_REMOVE':
+      return {
+        ...state,
+        alerts: state.alerts.filter((_, index) => index !== action.index),
+      };
+
+    case 'ALERT_CLEAR':
+      return {
+        ...state,
+        alerts: [],
       };
 
     default:
